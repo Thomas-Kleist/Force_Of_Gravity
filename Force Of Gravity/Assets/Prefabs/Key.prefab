@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212966037146460534}
   - component: {fileID: 50124337877931690}
   - component: {fileID: 61501400872875146}
-  - component: {fileID: 114167093557201444}
-  - component: {fileID: 114842028339750536}
+  - component: {fileID: 114752177847630810}
+  - component: {fileID: 114725830806244328}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581625276146574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 2, z: -0.018240891}
+  m_LocalPosition: {x: -8.211685, y: 14.270693, z: -0.018240891}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,20 +76,20 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.009777069}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 0.5}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.47203064}
   m_EdgeRadius: 0
---- !u!114 &114167093557201444
+--- !u!114 &114725830806244328
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,11 +97,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1581625276146574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b15cc6e2a9d6342acc3bb85fef8c2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 170a80c47da4dfb4b809d1355ff9cf74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveable: 1
---- !u!114 &114842028339750536
+  index: 0
+  player: {fileID: 0}
+--- !u!114 &114752177847630810
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -112,9 +113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9f7b4dc275640418fb0de8e55ea0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectPriority: 10
-  jumpable: 1
-  stopingJumpable: 0
+  selectPriority: 0
+  jumpable: 0
+  stopingJumpable: 1
 --- !u!212 &212966037146460534
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -150,7 +151,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 45a497019fb78f346a84c4680c4f5c5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49cbc884d0f462f499db924f87d58c6a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
