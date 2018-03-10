@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D box;
     public float speed = 100;
-    public float rayDis = 0.2f;
-    public float jumpSpeed = 300;
+    public int rayDis = 1;
+    public float jumpSpeed = 0;
+    public Transform objectHit;
     // Use this for initialization
     void Start()
     {
@@ -16,21 +17,34 @@ public class Player : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Movement();
     }
-   private void Movement()
+    private void Movement()
     {
         transform.position = new Vector2(transform.position.x + Input.GetAxis("Horizontal") * speed * Time.deltaTime, transform.position.y);
-        RaycastHit2D[] hit = new RaycastHit2D[10];
-        int hits = box.Raycast(new Vector2(transform.position.x, transform.position.y+1), hit, rayDis);
-        if (hits == 0) hits = box.Raycast(new Vector2(transform.position.x + 2, transform.position.y + 1), hit, rayDis*2f);
-        if (hits == 0) hits = box.Raycast(new Vector2(transform.position.x - 2, transform.position.y + 1), hit, rayDis*2f);
-        if (Input.GetButton("Jump") && hits != 0 && rb.velocity.y == 0)
+        if (Input.GetButtonUp("Jump") && objectHit != null)
         {
-            rb.AddForce(new Vector2(0, jumpSpeed));
-            hit[0].transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -jumpSpeed));
+            rb.AddRelativeForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
+            if (objectHit.GetComponent<BlockPushDown>() != null) objectHit.GetComponent<BlockPushDown>().StartCoroutine("PushDown", jumpSpeed);
+            jumpSpeed = 0;
         }
+        else if (Input.GetButtonUp("Jump"))
+        {
+            jumpSpeed = 0;
+        }
+        else if (Input.GetButton("Jump"))
+        {
+            jumpSpeed += 0.1f;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        objectHit = collision.collider.transform;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        objectHit = null;
     }
 }
