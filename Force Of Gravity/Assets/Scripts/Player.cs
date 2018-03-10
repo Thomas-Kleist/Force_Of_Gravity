@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     BoxCollider2D box;
     public float speed = 100;
     public int rayDis = 1;
-    public float jumpSpeed = 0;
+    public float jumpSpeed = 4;
     public Transform objectHit;
     // Use this for initialization
     void Start()
@@ -28,11 +28,11 @@ public class Player : MonoBehaviour
         {
             rb.AddRelativeForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
             if (objectHit.GetComponent<BlockPushDown>() != null) objectHit.GetComponent<BlockPushDown>().StartCoroutine("PushDown", jumpSpeed);
-            jumpSpeed = 0;
+            jumpSpeed = 4;
         }
         else if (Input.GetButtonUp("Jump"))
         {
-            jumpSpeed = 0;
+            jumpSpeed = 4;
         }
         else if (Input.GetButton("Jump"))
         {
