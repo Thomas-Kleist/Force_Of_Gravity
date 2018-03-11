@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class Player : MonoBehaviour
     public int rayDis = 1;
     public float jumpSpeed = 4;
     public Transform objectHit;
+
+    public GameObject jumpbarBack;
+    public GameObject jumpbarBackFront;
+    public GameObject jumpbarFore;
+
+    public bool modded = false;
 
     public bool[] keys;
 
@@ -26,7 +33,7 @@ public class Player : MonoBehaviour
         if (transform.position.y < -20 && rb.freezeRotation)
         {
             rb.freezeRotation = false;
-            rb.AddTorque(-50);
+            StartCoroutine(EaseIn());
         }
     }
 
@@ -37,19 +44,41 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         transform.position = new Vector2(transform.position.x + Input.GetAxis("Horizontal") * speed * Time.deltaTime, transform.position.y);
-        if (Input.GetButtonUp("Jump") && objectHit != null)
+        if (Input.GetButtonDown("Jump") && Input.GetButton("Mod"))
+        {
+            modded = true;
+        }
+        else if (Input.GetButtonDown("Jump") && !modded && objectHit != null)
+        {
+            rb.AddRelativeForce(new Vector2(0, 4 * rb.gravityScale), ForceMode2D.Impulse);
+            if (objectHit.GetComponent<BlockPushDown>() != null) objectHit.GetComponent<BlockPushDown>().StartCoroutine("PushDown", 4 * rb.gravityScale);
+        }
+        if (Input.GetButtonUp("Jump") && modded && objectHit != null)
         {
             rb.AddRelativeForce(new Vector2(0, jumpSpeed * rb.gravityScale), ForceMode2D.Impulse);
             if (objectHit.GetComponent<BlockPushDown>() != null) objectHit.GetComponent<BlockPushDown>().StartCoroutine("PushDown", jumpSpeed * rb.gravityScale);
             jumpSpeed = 4;
+            jumpbarBack.GetComponent<Image>().enabled = false;
+            jumpbarBackFront.GetComponent<Image>().enabled = false;
+            jumpbarFore.GetComponent<Image>().enabled = false;
+            modded = false;
         }
         else if (Input.GetButtonUp("Jump"))
         {
             jumpSpeed = 4;
         }
-        else if (Input.GetButton("Jump"))
+        else if (Input.GetButton("Jump") && modded)
         {
-            jumpSpeed = Mathf.Clamp(jumpSpeed+0.1f,0,20);
+            jumpSpeed = Mathf.Clamp(jumpSpeed + 10 * Time.deltaTime, 0, 20);
+            jumpbarBack.GetComponent<Image>().enabled = true;
+            jumpbarBackFront.GetComponent<Image>().enabled = true;
+            jumpbarFore.GetComponent<Image>().enabled = true;
+        }
+        else if (!Input.GetButton("Jump"))
+        {
+            jumpbarBack.GetComponent<Image>().enabled = false;
+            jumpbarBackFront.GetComponent<Image>().enabled = false;
+            jumpbarFore.GetComponent<Image>().enabled = false;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -65,5 +94,13 @@ public class Player : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         objectHit = null;
+    }
+    private IEnumerator EaseIn()
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            rb.AddTorque(i / 10);
+            yield return null;
+        }
     }
 }

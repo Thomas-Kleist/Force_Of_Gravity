@@ -14,7 +14,7 @@ public class Keys : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, player.transform.position) < 1)
         {
-            text.GetComponent<Text>().text = "Press E pick up key";
+            text.GetComponent<Text>().text = "Press E pick up key " + index.ToString();
             if (Input.GetButtonDown("Select"))
             {
                 text.GetComponent<Text>().text = "";
