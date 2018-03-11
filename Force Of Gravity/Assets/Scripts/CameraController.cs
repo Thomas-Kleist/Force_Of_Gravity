@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour {
     bool following = false;
     private void Update()
     {
-        if (transform.position.y > -20)
+        if (transform.position.y > -0)
         {
             transform.position = Vector2.SmoothDamp(transform.position, Player.transform.position, ref currentVel, 0.1f);
             transform.position = new Vector3(transform.position.x, transform.position.y, -10);

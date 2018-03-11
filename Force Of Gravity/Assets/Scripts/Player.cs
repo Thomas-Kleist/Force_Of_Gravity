@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < -20 && rb.freezeRotation)
+        if (transform.position.y < -40 && rb.freezeRotation)
         {
             rb.freezeRotation = false;
             StartCoroutine(EaseIn());
