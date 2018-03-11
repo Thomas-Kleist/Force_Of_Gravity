@@ -21,6 +21,15 @@ public class Player : MonoBehaviour
         keys = new bool[10];
     }
 
+    private void Update()
+    {
+        if (transform.position.y < -20 && rb.freezeRotation)
+        {
+            rb.freezeRotation = false;
+            rb.AddTorque(-50);
+        }
+    }
+
     void FixedUpdate()
     {
         Movement();
@@ -40,7 +49,7 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetButton("Jump"))
         {
-            jumpSpeed += 0.1f;
+            jumpSpeed = Mathf.Clamp(jumpSpeed+0.1f,0,20);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
