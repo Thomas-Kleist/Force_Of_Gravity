@@ -48,12 +48,12 @@ public class Player : MonoBehaviour
         {
             modded = true;
         }
-        else if (Input.GetButtonDown("Jump") && !modded && objectHit != null)
+        else if (Input.GetButtonDown("Jump") && !modded && objectHit != null && Mathf.Abs(rb.velocity.y) <= 10)
         {
             rb.AddRelativeForce(new Vector2(0, 4 * rb.gravityScale), ForceMode2D.Impulse);
             if (objectHit.GetComponent<BlockPushDown>() != null) objectHit.GetComponent<BlockPushDown>().StartCoroutine("PushDown", 4 * rb.gravityScale);
         }
-        if (Input.GetButtonUp("Jump") && modded && objectHit != null)
+        if (Input.GetButtonUp("Jump") && modded && objectHit != null && Mathf.Abs(rb.velocity.y) <= 10)
         {
             rb.AddRelativeForce(new Vector2(0, jumpSpeed * rb.gravityScale), ForceMode2D.Impulse);
             if (objectHit.GetComponent<BlockPushDown>() != null) objectHit.GetComponent<BlockPushDown>().StartCoroutine("PushDown", jumpSpeed * rb.gravityScale);
