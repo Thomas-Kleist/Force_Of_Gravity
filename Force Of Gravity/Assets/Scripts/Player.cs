@@ -83,12 +83,14 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (objectHit == null || objectHit.GetComponent<Stats>().selectPriority < collision.collider.transform.GetComponent<Stats>().selectPriority) objectHit = collision.collider.transform;
+        if (objectHit == null) objectHit = collision.collider.transform;
+        if (collision.collider.transform.GetComponent<Stats>() != null && objectHit.GetComponent<Stats>().selectPriority < collision.collider.transform.GetComponent<Stats>().selectPriority) objectHit = collision.collider.transform;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (objectHit == null || objectHit.GetComponent<Stats>().selectPriority < collision.collider.transform.GetComponent<Stats>().selectPriority) objectHit = collision.collider.transform;
+        if (objectHit == null) objectHit = collision.collider.transform;
+        if (collision.collider.transform.GetComponent<Stats>() != null && objectHit.GetComponent<Stats>().selectPriority < collision.collider.transform.GetComponent<Stats>().selectPriority) objectHit = collision.collider.transform;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
