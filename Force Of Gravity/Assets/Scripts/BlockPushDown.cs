@@ -9,12 +9,12 @@ public class BlockPushDown : MonoBehaviour
     {
         moveable = true;
         if (speed > 0) while (speed > 0)
-        {
-            if (!moveable) break;
-            yield return null;
-            transform.position = new Vector2(transform.position.x, transform.position.y - (speed) * Time.deltaTime/3);
-            speed -= 0.1f; 
-        }
+            {
+                if (!moveable) break;
+                yield return null;
+                transform.position = new Vector2(transform.position.x, transform.position.y - (speed) * Time.deltaTime / 3);
+                speed -= 0.1f;
+            }
 
         if (speed < 0) while (speed < 0)
             {
