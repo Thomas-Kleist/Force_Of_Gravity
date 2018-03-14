@@ -24,6 +24,21 @@ public class BlockPushDown : MonoBehaviour
                 speed += 0.1f;
             }
     }
+
+    public void StartExplosion(float time, float torque, Vector2 force)
+    {
+        StartCoroutine(Expload(time, torque, force));
+    }
+
+    public IEnumerator Expload(float time, float torque, Vector2 force)
+    {
+        yield return new WaitForSeconds(time);
+        GetComponent<Rigidbody2D>().gravityScale = 1;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        GetComponent<Rigidbody2D>().AddTorque(torque);
+        GetComponent<Rigidbody2D>().AddForce(force);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.transform.GetComponent<Stats>() != null) if (collision.collider.transform.GetComponent<Stats>().stopingJumpable == true) moveable = false;
