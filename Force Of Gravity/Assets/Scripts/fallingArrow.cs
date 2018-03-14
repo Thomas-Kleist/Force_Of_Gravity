@@ -25,9 +25,9 @@ public class fallingArrow : MonoBehaviour {
     private IEnumerator WaitAndMove()
     {
         running = true;
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        GetComponent<Rigidbody2D>().freezeRotation = true;
         yield return new WaitForSeconds(10f);
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        GetComponent<Rigidbody2D>().freezeRotation = false;
         GetComponent<Rigidbody2D>().AddTorque(10);
         StartCoroutine(WaitAndDestroy());
     }
